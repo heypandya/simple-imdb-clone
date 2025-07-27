@@ -81,11 +81,11 @@ npm start
 
 **Sundarapandiyan Thangaraj**
 
-- [Twitter/x] (https://x.com/heypandya)
+- [Twitter/x](https://x.com/heypandya)
 
 ---
 
 ## 🌟 Acknowledgements
 
 - [TMDB](https://www.themoviedb.org/) for free movie date API
-- Icons by [Font Awesome] (https://fontawesome.com/)
+- Icons by [Font Awesome](https://fontawesome.com/)
