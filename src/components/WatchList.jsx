@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import genreIds from "../utility/genre";
 
 function WatchList({ watchlist, setWatchlist, handleRemoveFromWatchList }) {
   const [search, setSearch] = useState("");
-  const [genreList, setGenreList] = useState(["All Genres"]);
   const [currGenre, setCurrGenre] = useState("All Genres");
 
   let handleSearch = (e) => {
@@ -29,27 +28,37 @@ function WatchList({ watchlist, setWatchlist, handleRemoveFromWatchList }) {
     console.log(genre);
   };
 
-  useEffect(() => {
-    let temp = watchlist.map((movieObj) => {
-      return genreIds[movieObj.genre_ids[0]];
-    });
-    setGenreList(["All Genres", ...temp]);
-    console.log(temp);
-  }, [watchlist]);
+  const genreCountMap = watchlist.reduce((acc, movie) => {
+    const genreId = movie.genre_ids[0];
+    const genreName = genreIds[genreId];
+
+    if (genreName) {
+      acc[genreName] = (acc[genreName] || 0) + 1;
+    }
+    return acc;
+  }, {});
+
+  const genreListwithCounts = [
+    ["All Genres", 0],
+    ...Object.entries(genreCountMap),
+  ];
 
   return (
     <>
       <div className="flex justify-center flex-wrap m-4">
-        {genreList.map((genre, idx) => {
+        {genreListwithCounts.map(([genre, count]) => {
           return (
             <div
-              key={idx}
+              key={genre}
               onClick={() => handleFilter(genre)}
-              className={`flex justify-center items-center text-white text-center font-bold rounded-lg  h-[3rem] w-[9rem] mr-4 gap-2 mb-2 sm:mb-4 md:mb-6 lg:mb-8 ${
-                currGenre === genre ? "bg-blue-400" : "bg-gray-400"
+              // flex justify-center items-center text-white text-center font-bold rounded-lg  h-[3rem] w-[9rem] mr-4 gap-2 mb-2 sm:mb-4 md:mb-6 lg:mb-8
+              className={` cursor-pointer px-2 py-1 ${
+                currGenre === genre
+                  ? "text-blue-600 underline font-semibold"
+                  : "text-gray-600 hover:text-blue-400"
               }`}
             >
-              {genre}
+              {genre} {genre !== "All Genres" && count > 1 ? `(${count})` : ""}
             </div>
           );
         })}
