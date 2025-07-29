@@ -12,7 +12,7 @@ A simplified IMDb clone built with **React**. The application features:
 
 - 🎞️ Browse movies by genre.
 - ⭐ Sort movies by rating or popularity.
-- 🧾 Add/remove movies from your personal watchlist.
+- 🧾 Add/remove movies from your watchlist.
 - 📱 Fully responsive layout using Tailwind CSS.
 
 ---
